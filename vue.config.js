@@ -1,3 +1,7 @@
 module.exports = {
-    publicPath : '/vbo/'
+    publicPath : '/vbo/',
+
+    transpileDependencies: [
+      'vuetify'
+    ]
 }
