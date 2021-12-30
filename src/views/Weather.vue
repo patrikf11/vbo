@@ -1,9 +1,9 @@
 <template>
   <v-card flat v-if="!bmeLoading" >
     <v-window v-model="model" reverse >
-      <GaugeWindowItem :dta="humidity" :opts="getOpts(gaugeKind.HUMIDITY)" header="humidity"  /> 
-      <GaugeWindowItem :dta="temperature" :opts="getOpts(gaugeKind.TEMPERATURE)" header="temp"  />
-      <GaugeWindowItem :dta="pressure" :opts="getOpts(gaugeKind.PRESSURE)" header="pressure" />
+      <GaugeWindowItem :dta="humidity" :opts="getOpts(gaugeKind.HUMIDITY, humidity)" header="humidity"  /> 
+      <GaugeWindowItem :dta="temperature" :opts="getOpts(gaugeKind.TEMPERATURE, temperature)" header="temp"  />
+      <GaugeWindowItem :dta="pressure" :opts="getOpts(gaugeKind.PRESSURE, pressure)" header="pressure" />
     </v-window>
     <v-card-actions class="justify-space-between" style="flex-direction: column;">
       <v-item-group v-model="model" class="text-center" mandatory >
@@ -30,8 +30,8 @@
       gaugeKind:GaugeKind,
     }),
     methods: {
-      getOpts(kind){
-        return getGaugeOptions(kind, this.pressure?.value, this.pressure?.prevValue);
+      getOpts(kind, dta){
+        return getGaugeOptions(kind, dta?.value, dta?.prevValue);
       }
     },
     computed: {

@@ -40,6 +40,16 @@ const templateOpt = {
     fontValueSize: 30
   };
 
+  function gaugeTrend(currVal, prevVal){
+    if (prevVal < currVal){
+      return [{from:prevVal, to:currVal, color:'red'}];
+    }
+    if (prevVal > currVal){
+      return [{from:currVal, to:prevVal, color:'blue'}];
+    }
+    return [];
+  }
+
   export function getGaugeOptions(kind, currVal, prevVal){
     let opt = cloneDeep(templateOpt);
     if (GaugeKind.PRESSURE.name == kind.name) {
@@ -50,12 +60,7 @@ const templateOpt = {
         opt.minorTicks = 10;
         opt.fontNumbersSize = 20;
         opt.majorTicks = ['','970','980','990','1000','','1020','1030','1040','1050',''];
-        if (prevVal < currVal) {
-            opt.highlights=[{from:prevVal, to: currVal,'color': 'red'}];
-        }
-        if (prevVal > currVal) {
-            opt.highlights=[{from: currVal, to: prevVal,'color': 'blue'}];
-        }
+        opt.highlights=gaugeTrend(currVal, prevVal);
     }
     if (GaugeKind.HUMIDITY.name == kind.name) {
         opt.units = '%RH';
@@ -64,6 +69,7 @@ const templateOpt = {
         opt.maxValue = 100;
         opt.minorTicks = 5;
         opt.majorTicks = ['0','','20','','40','','60','','80','','100'];
+        opt.highlights=gaugeTrend(currVal, prevVal);
     }
     if (GaugeKind.TEMPERATURE.name == kind.name) {
         opt.units = '°C';
@@ -73,6 +79,7 @@ const templateOpt = {
         opt.highlights = [ {'from': -40,'to': -15,'color': 'lightblue'},{'from': 30,'to': 40,'color': 'red'}];
         opt.minorTicks = 3;
         opt.majorTicks = ['','-30','-20','-10','','10','20','30',''];
+        opt.highlights=gaugeTrend(currVal, prevVal);
     }
     return opt;
   }

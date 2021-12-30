@@ -10,7 +10,7 @@ Vue.use(Vuex);
 
 function mapBme(state, key){
   const curr = state.bmePayload.slice(-1)[0],
-        prev =  state.bmePayload.slice(-7,-6)[0],
+        prev =  state.bmePayload.slice(-13,-12)[0],
         currV = (curr && curr[key]) ? curr[key] : 0,
         prevV = (prev && prev[key]) ? prev[key] : 0;
   return {value:currV, prevValue:prevV, dt:curr?.created_at};
@@ -49,7 +49,7 @@ const store = new Vuex.Store({
     actions: {
       [FETCH_BME] (context) { 
         context.commit(LOADING_BME, true);         
-        fetch("https://api.thingspeak.com/channels/586281/feeds.json?results=10")
+        fetch("https://api.thingspeak.com/channels/586281/feeds.json?results=14")
           .then(response => response.json())
           .then(data => context.commit(FETCH_BME, data.feeds))
           .catch(error => console.log(error.statusText));
