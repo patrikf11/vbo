@@ -1,24 +1,35 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as type from './types';
 
-Vue.use(Vuex)
+import { 
+  FETCH_BME,
+  LOADING_BME
+ } from './types';
+
+Vue.use(Vuex);
+
+function mapBme(state, key){
+  const curr = state.bmePayload.slice(-1)[0],
+        prev =  state.bmePayload.slice(-7,-6)[0],
+        currV = (curr && curr[key]) ? curr[key] : 0,
+        prevV = (prev && prev[key]) ? prev[key] : 0;
+  return {value:currV, prevValue:prevV, dt:curr?.created_at};
+}
 
 const store = new Vuex.Store({
     state: {
-      count: 0,
       bmePayload: [],
       bmeLoading: true
     },
     getters: {
       temperature(state){
-        return state.bmePayload.slice(-1)[0]?.field1;
+        return mapBme(state, 'field1');
       },
       pressure(state){
-        return state.bmePayload.slice(-1)[0]?.field2;
+        return mapBme(state, 'field2');
       },
       humidity(state){
-        return state.bmePayload.slice(-1)[0]?.field3;
+        return mapBme(state, 'field3');
       },
       bmeLoading(state){
         return state.bmeLoading;
@@ -28,30 +39,21 @@ const store = new Vuex.Store({
       },
     },
     mutations: {
-      increment (state, payload){
-        console.log('mutat');
-        return state.count = state.count + payload.amount;
-      },
-      fetchBME(state, bmePayload) {
-        console.log('add payload', bmePayload);
+      [FETCH_BME] (state, bmePayload) {
         state.bmePayload = bmePayload
       },
-      loadingBME(state, status){
+      [LOADING_BME] (state, status){
         state.bmeLoading = status;
       }
     },
     actions: {
-      fetchBME( context ) { 
-        context.commit(type.LOADING_BME, true);         
+      [FETCH_BME] (context) { 
+        context.commit(LOADING_BME, true);         
         fetch("https://api.thingspeak.com/channels/586281/feeds.json?results=10")
           .then(response => response.json())
-          .then(data => context.commit(type.FETCH_BME, data.feeds))
+          .then(data => context.commit(FETCH_BME, data.feeds))
           .catch(error => console.log(error.statusText));
-        context.commit(type.LOADING_BME, false);           
-      },
-      increment (context, payload) {
-        console.log('action');
-        context.commit(type.Increment, payload);
+        context.commit(LOADING_BME, false);           
       },
     },
   });

@@ -1,13 +1,9 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="#fcb69f"
-      dark
-      src="https://picsum.photos/1920/1080?random"
-    >
+  <v-app style="overflow:hidden">
+    <v-app-bar app color="#fcb69f" dark src="https://picsum.photos/1920/1080?random" >
      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
+      <v-btn icon @click="reload"><v-icon>mdi-sync</v-icon> </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -36,24 +32,32 @@
 <script>
 import Weather from './views/Weather.vue';
 import About from './views/About.vue';
+import store from './store/store';
+import { FETCH_BME } from './store/types';
 
 export default {
   name: 'App',
-
+  methods: {
+    reload: () => {
+      console.log('fetching data');
+      store.dispatch({type: FETCH_BME}); 
+    }
+  },
   components: {
     Weather,About,
   },
-
   data: () => ({
     drawer:false,
     group:0,
-    //
   }),
   watch: {
     group () {
       console.log(this.group)
       this.drawer = false
     },
-  }
+  },
+   mounted: function() {
+      this.reload();
+  },
 };
 </script>
