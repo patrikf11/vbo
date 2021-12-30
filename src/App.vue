@@ -1,5 +1,5 @@
 <template>
-  <v-app style="overflow:hidden">
+  <v-app style="overflow:hidden; height:100vh">
     <v-app-bar app color="#fcb69f" dark src="https://picsum.photos/1920/1080?random" >
      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>

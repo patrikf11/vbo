@@ -1,5 +1,5 @@
 <template>
-  <v-card flat v-if="!bmeLoading">
+  <v-card flat v-if="!bmeLoading" >
     <v-window v-model="model" reverse >
       <GaugeWindowItem :dta="humidity" :opts="getOpts(gaugeKind.HUMIDITY)" header="humidity"  /> 
       <GaugeWindowItem :dta="temperature" :opts="getOpts(gaugeKind.TEMPERATURE)" header="temp"  />
