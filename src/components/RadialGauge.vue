@@ -21,10 +21,8 @@ export default {
     }
   },
   mounted: function () {  
-    let minv = this.options?.minValue ? this.options?.minValue : 0;
-    this.chart = new RadialGauge(Object.assign({}, this.options, {renderTo: this.$el, value: minv})).draw();
-    this.chart.value = this.value;
-    
+    this.chart = new RadialGauge(Object.assign({}, this.options, {renderTo: this.$el, value: this.value})).draw();
+    this.chart.value = this.value; 
   },
   beforeDestroy: function () {
     this.chart.destroy()

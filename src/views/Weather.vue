@@ -2,7 +2,7 @@
   <v-card flat v-if="!bmeLoading" >
     <v-window v-model="model" reverse >
       <GaugeWindowItem :dta="humidity" :opts="getOpts(gaugeKind.HUMIDITY, humidity)" header="humidity"  /> 
-      <GaugeWindowItem :dta="temperature" :opts="getOpts(gaugeKind.TEMPERATURE, temperature)" header="temp"  />
+      <GaugeWindowItem :dta="temperature" :opts="getOpts(gaugeKind.TEMPERATURE, temperature)" header="temperature"  />
       <GaugeWindowItem :dta="pressure" :opts="getOpts(gaugeKind.PRESSURE, pressure)" header="pressure" />
     </v-window>
     <v-card-actions class="justify-space-between" style="flex-direction: column;">

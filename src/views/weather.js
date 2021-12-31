@@ -79,6 +79,7 @@ const templateOpt = {
         opt.highlights = [ {'from': -40,'to': -15,'color': 'lightblue'},{'from': 30,'to': 40,'color': 'red'}];
         opt.minorTicks = 3;
         opt.majorTicks = ['','-30','-20','-10','','10','20','30',''];
+        console.log(currVal + "----" + prevVal);
         opt.highlights=gaugeTrend(currVal, prevVal);
     }
     return opt;

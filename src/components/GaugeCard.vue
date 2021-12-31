@@ -3,6 +3,7 @@
     <v-window-item>
         <v-card class="text-center"> 
           <RadialGauge :value="val" :options="opts"/>  
+          <HistoryChart :metric="header"/>
           <v-footer padless>
             <v-col class="text-center text-capitalize" cols="12">
             {{dt}}
@@ -15,6 +16,7 @@
 <script>
 
 import RadialGauge from './RadialGauge.vue'
+import HistoryChart from './HistoryChart.vue'
 import { format,parseISO } from 'date-fns'
 import sv from 'date-fns/locale/sv'
 export default {
@@ -40,7 +42,7 @@ export default {
       }
   },
   components:{
-      RadialGauge
+      RadialGauge,HistoryChart
   }
 }
 </script>

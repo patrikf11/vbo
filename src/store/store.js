@@ -8,6 +8,10 @@ import {
 
 Vue.use(Vuex);
 
+function mapBmeHist(state, key){
+  return state.bmePayload
+    .map( t => {return {value:t[key], dt:t?.created_at} });
+}
 function mapBme(state, key){
   const curr = state.bmePayload.slice(-1)[0],
         prev =  state.bmePayload.slice(-13,-12)[0],
@@ -22,11 +26,20 @@ const store = new Vuex.Store({
       bmeLoading: true
     },
     getters: {
+      temperatureHist(state){
+        return mapBmeHist(state, 'field1');
+      },
       temperature(state){
         return mapBme(state, 'field1');
       },
+      pressureHist(state){
+        return mapBmeHist(state, 'field2');
+      },
       pressure(state){
         return mapBme(state, 'field2');
+      },
+      humidityHist(state){
+        return mapBmeHist(state, 'field3');
       },
       humidity(state){
         return mapBme(state, 'field3');
@@ -49,7 +62,7 @@ const store = new Vuex.Store({
     actions: {
       [FETCH_BME] (context) { 
         context.commit(LOADING_BME, true);         
-        fetch("https://api.thingspeak.com/channels/586281/feeds.json?results=14")
+        fetch("https://api.thingspeak.com/channels/586281/feeds.json?results=200")
           .then(response => response.json())
           .then(data => context.commit(FETCH_BME, data.feeds))
           .catch(error => console.log(error.statusText));
