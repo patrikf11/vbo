@@ -6,6 +6,7 @@
 import Chart from './Chart.vue'
 import {getChartData } from './HistoryChart.js'
 import { mapGetters } from 'vuex';
+import {BMEKind} from '../components/common.js'
 
 export default {
   name: 'HistoryChart',
@@ -14,22 +15,19 @@ export default {
              default: () => {return 'temperature'}
     },
   }, 
-  data() {
-    return {
-    }
-  },
+  data: () => ({}),
   methods:{
         getChartData(){
             let data=[];
             switch(this.metric) {
             case "pressure":
-                data = this.pressureHist;
+                data = this.getBMEHist(BMEKind.PRESSURE);
                 break;
             case "temperature":
-                data = this.temperatureHist;
+                data = data = this.getBMEHist(BMEKind.TEMPERATURE);
                 break;
             case "humidity":
-                data = this.humidityHist;
+                data = this.getBMEHist(BMEKind.HUMIDITY);
                 break;
             default:
                 data = [];
@@ -39,7 +37,7 @@ export default {
   },
   computed: {
       ...mapGetters([
-        'temperatureHist','pressureHist','humidityHist'
+        'getBMEHist'
       ]),
   },
   components: {
@@ -47,13 +45,4 @@ export default {
   }
 }
 
-/*
-class Metric {
-    static PRESSURE = new Metric("pressure");
-    static TEMPERATURE = new Metric("temperature");
-    static HUMIDITY = new Metric("humidity");
-    constructor(name) {
-      this.name = name;
-}
-*/
 </script>

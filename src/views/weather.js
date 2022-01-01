@@ -1,5 +1,6 @@
 //try ro keep vue files clean by moving out excessive scripts 
 import { cloneDeep } from 'lodash'
+import {BMEKind} from '../common/common.js'
 
 const templateOpt = {
     units: '',
@@ -41,18 +42,19 @@ const templateOpt = {
   };
 
   function gaugeTrend(currVal, prevVal){
-    if (prevVal < currVal){
+    let pv= prevVal*1, cv= currVal*1;
+    if (pv < cv){
       return [{from:prevVal, to:currVal, color:'red'}];
     }
-    if (prevVal > currVal){
+    if (pv > cv){
       return [{from:currVal, to:prevVal, color:'blue'}];
     }
     return [];
   }
 
-  export function getGaugeOptions(kind, currVal, prevVal){
+  function getGaugeOptions(kind, currVal, prevVal){
     let opt = cloneDeep(templateOpt);
-    if (GaugeKind.PRESSURE.name == kind.name) {
+    if (BMEKind.PRESSURE.name == kind.name) {
         opt.units = 'hPa';
         opt.title = 'Pressure.';
         opt.minValue = 960;
@@ -60,18 +62,20 @@ const templateOpt = {
         opt.minorTicks = 10;
         opt.fontNumbersSize = 20;
         opt.majorTicks = ['','970','980','990','1000','','1020','1030','1040','1050',''];
-        opt.highlights=gaugeTrend(currVal, prevVal);
+        opt.highlights=[];
+        opt.highlights.push(...gaugeTrend(currVal, prevVal));
     }
-    if (GaugeKind.HUMIDITY.name == kind.name) {
+    if (BMEKind.HUMIDITY.name == kind.name) {
         opt.units = '%RH';
         opt.title = 'Humidity.';
         opt.minValue = 0;
         opt.maxValue = 100;
         opt.minorTicks = 5;
         opt.majorTicks = ['0','','20','','40','','60','','80','','100'];
-        opt.highlights=gaugeTrend(currVal, prevVal);
+        opt.highlights=[];
+        opt.highlights.push(...gaugeTrend(currVal, prevVal));
     }
-    if (GaugeKind.TEMPERATURE.name == kind.name) {
+    if (BMEKind.TEMPERATURE.name == kind.name) {
         opt.units = '°C';
         opt.title = 'Temp.';
         opt.minValue = -40;
@@ -79,20 +83,13 @@ const templateOpt = {
         opt.highlights = [ {'from': -40,'to': -15,'color': 'lightblue'},{'from': 30,'to': 40,'color': 'red'}];
         opt.minorTicks = 3;
         opt.majorTicks = ['','-30','-20','-10','','10','20','30',''];
-        console.log(currVal + "----" + prevVal);
-        opt.highlights=gaugeTrend(currVal, prevVal);
+        opt.highlights.push(...gaugeTrend(currVal, prevVal));
     }
     return opt;
   }
  
-  export class GaugeKind {
-    // Create new instances of the same class as static attributes
-    static PRESSURE = new GaugeKind("pressure");
-    static TEMPERATURE = new GaugeKind("temperature");
-    static HUMIDITY = new GaugeKind("humidity");
-    constructor(name) {
-      this.name = name;
-    }
+  export function getGaugeData(kind, currValue){
+    return { dta: currValue, opts:getGaugeOptions(kind, currValue?.value, currValue?.prevValue)};
   }
 
-  
+ 
