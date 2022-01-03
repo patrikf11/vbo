@@ -4,6 +4,7 @@
       <p>
       Plan is to get something that can visualizes data from my iot devices
       </p>
+      
   </v-container>
 </template>
 
