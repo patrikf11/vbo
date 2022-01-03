@@ -6,7 +6,7 @@
 import Chart from './Chart.vue'
 import {getChartData } from './HistoryChart.js'
 import { mapGetters } from 'vuex';
-import {BMEKind} from '../components/common.js'
+import {BMEKind} from '../common/common.js'
 
 export default {
   name: 'HistoryChart',

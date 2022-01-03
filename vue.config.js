@@ -3,5 +3,10 @@ module.exports = {
 
     transpileDependencies: [
       'vuetify'
-    ]
+    ],
+    pwa: {
+      manifestOptions:{
+        display: 'fullscreen'
+      }
+    }
 }

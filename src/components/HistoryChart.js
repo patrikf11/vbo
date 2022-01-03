@@ -11,6 +11,7 @@ export const chartData = {
         labels: ['January', '',  'March', 'April']
     },
     options: {
+        maintainAspectRatio: false,
         responsive: true,
         legend:{ display: false },  
         scales: {

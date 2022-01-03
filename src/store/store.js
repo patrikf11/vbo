@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-
 import { 
   FETCH_BME,
-  LOADING_BME
+  FETCH_VICTRON,
+  LOADING_BME,
+  LOADING_VICTRON
  } from './types';
 
 Vue.use(Vuex);
@@ -24,7 +25,9 @@ function mapBme(state, key){
 const store = new Vuex.Store({
     state: {
       bmePayload: [],
-      bmeLoading: true
+      vicronPayload: [],
+      bmeLoading: true,
+      victronLoading: true
     },
     getters: {
       getBMECurrent: (state) => (bmeKind) => {
@@ -44,18 +47,32 @@ const store = new Vuex.Store({
       [FETCH_BME] (state, bmePayload) {
         state.bmePayload = bmePayload
       },
+      [FETCH_VICTRON] (state, victronPayload) {
+        state.victronPayload = victronPayload
+      },
       [LOADING_BME] (state, status){
         state.bmeLoading = status;
+      },
+      [LOADING_VICTRON] (state, status){
+        state.victronLoading = status;
       }
     },
     actions: {
-      [FETCH_BME] (context) { 
+      [FETCH_BME] (context) {
         context.commit(LOADING_BME, true);         
-        fetch("https://api.thingspeak.com/channels/586281/feeds.json?results=20")
+        fetch("https://api.thingspeak.com/channels/586281/feeds.json?results=20&format=json")
           .then(response => response.json())
           .then(data => context.commit(FETCH_BME, data.feeds))
           .catch(error => console.log(error.statusText));
         context.commit(LOADING_BME, false);           
+      },
+      [FETCH_VICTRON] (context) {
+        context.commit(LOADING_VICTRON, true);         
+        fetch("https://api.thingspeak.com/channels/1095413/feeds.json?results=20&format=json")
+          .then(response => response.json())
+          .then(data => context.commit(FETCH_VICTRON, data.feeds))
+          .catch(error => console.log(error.statusText));
+        context.commit(LOADING_VICTRON, false);           
       },
     },
   });
