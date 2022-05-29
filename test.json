@@ -2,13 +2,14 @@
   id:100,
   picInterval:1,
   picSize:1,
-  ss:"smtp.gmail.com", 
-  sp:"465", 
-  mto:"cZSX509/HA0TnwFiUNMWRwwP5W4Ao8LjqKAn8v42EHY=", 
-  mti:"xxx.xxx@xxx.xxx", 
-  oau:"xxx.xxx@xxx.xxx",
-  oci:"xxxxx.xxxxxx.xxxxx.xxxxx.xxxxx.xxx",
-  ocs:"xxxxx.xxxxx.xxxxxx.xxxxx.xxxx",
-  ort:"xxxx.xxxxx.xxxxx.xxxxx.xx",
+  mti:"kbo lives", 
+  mto:"X7RyfRB1nwiJztrEiqAHaB69bpa0AfU1xVKWWpH7z0c=, 
+  ss:"WlP6WU5RHsX11zrE993YGQ==", 
+  sp:"iC1AmmlDkCwpggxb4QXpPg==", 
+  
+  oau:"X7MyLBOluOiKKQteXYBeA1UeUv4DQFN9uVTZ0BHwYsI=",
+  oci:"QJia+7u9j+gey0qxwiw1YKu4smUIqXaREkSFQXaIsg6BJ1vYiWPW0oM8Z1IzSzqBhx1CU28JSsuqgWwhFl53U4PQbWUbF7VCg6yx0sX/7y4=",
+  ocs:"HOO4dKM6EUfdzf5LEZihWHaKMhxCtVvKVJXuqDxxHcel4Udj4iyxwQXiMCePHqBc",
+  ort:"r8XPXbdvdYs5SmZeKA478tEj1tnNDmYAyYa2rnwLfxOOGEz+Br0EvXiUHBnnr4vnb8w2/1jjJo2l2xGlhCErjq+G8dRdShon1ZUv8azwaALfRw9f5NJUoiX8rIgRGb4jMrmFaM/b/zBU/N5kBgih4oQ/55fBHLOc+rUaqaLb9JadBYpWKp4pYQ9zUGeIrdj7YBzWRiQCAyXyIgSAT5ky5Dhs0Cid1Xd794YtC+LshSU=",
   text:"alibaba"
 }
