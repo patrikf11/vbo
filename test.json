@@ -1,4 +1,18 @@
 {
   id:100,
+  picInterval = 1;
+  picSize = 1;
+  
+  ss:"smtp.gmail.com" 
+  sp:"465". 
+  
+  mto:"xxx.xxx@xxx.xxx" MAIL_TO
+  mti:"xxx.xxx@xxx.xxx" MAIL_TITLE
+  
+  oau:"xxx.xxx@xxx.xxx"
+  oci:"xxxxx.xxxxxx.xxxxx.xxxxx.xxxxx.xxx"
+  ocs:"xxxxx.xxxxx.xxxxxx.xxxxx.xxxx"
+  ort:"xxxx.xxxxx.xxxxx.xxxxx.xx"
   text:"alibaba"
+  
 }
